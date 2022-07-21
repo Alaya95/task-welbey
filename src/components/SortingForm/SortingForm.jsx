@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./sortingForm.scss";
 
 export const SortingForm = ({ filterSubmit, onReset }) => {
   const [name, setName] = useState("");
@@ -6,7 +7,7 @@ export const SortingForm = ({ filterSubmit, onReset }) => {
   const [argument, setArgument] = useState("");
 
   function handleNameChange(e) {
-    if(e.target.value === 'name'){
+    if (e.target.value === "name") {
       setCondition("");
     }
     setName(e.target.value);
@@ -32,26 +33,41 @@ export const SortingForm = ({ filterSubmit, onReset }) => {
     filterSubmit({ name, condition, argument });
   }
 
-  const isNameSelected = name==="name";
+  const isNameSelected = name === "name";
   return (
-    <form className="table-form" onSubmit={handleSubmit}>
-      <select name="name" value={name} onChange={handleNameChange} required>
-        <option disabled value="">Поле...</option>
+    <form className="sort" onSubmit={handleSubmit}>
+      <select
+        className="sort__select"
+        name="name"
+        value={name}
+        onChange={handleNameChange}
+        required
+      >
+        <option disabled value="">
+          Поле...
+        </option>
         <option value="name">Название</option>
         <option value="quantity">Количество</option>
         <option value="distance">Расстояние</option>
       </select>
       <select
+        className="sort__select"
         name="condition"
         value={condition}
         onChange={handleConditionChange}
         required
       >
-        <option disabled value="">Условие...</option>
+        <option disabled value="">
+          Условие...
+        </option>
         <option value="equal">Равно</option>
         <option value="contain">Содержит</option>
-        <option disabled={isNameSelected} value="greater">Больше</option>
-        <option disabled={isNameSelected} value="less">Меньше</option>
+        <option disabled={isNameSelected} value="greater">
+          Больше
+        </option>
+        <option disabled={isNameSelected} value="less">
+          Меньше
+        </option>
       </select>
       <input
         name="argument"
@@ -60,15 +76,12 @@ export const SortingForm = ({ filterSubmit, onReset }) => {
         type="text"
         placeholder="Значение"
         required
+        className="sort__field"
       />
-      <button
-        className="table-form__button"
-        type="reset"
-        onClick={onClearFilter}
-      >
+      <button className="sort__btn" type="reset" onClick={onClearFilter}>
         Сброс
       </button>
-      <button className="table-form__button" type="submit">
+      <button className="sort__btn" type="submit">
         Фильтр
       </button>
     </form>
